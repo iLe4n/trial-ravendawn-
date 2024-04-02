@@ -1,0 +1,34 @@
+------Q3 - Fix or improve the name and the implementation of the below method--------
+
+
+function do_sth_with_PlayerParty(playerId, membername)
+    local player = Player(playerId)
+    local party = player:getParty()
+
+    if party == nil then
+        player:sendTextMessage(MESSAGE_STATUS_CONSOLE_ORANGE, "You are not in a party.")
+        return
+    end
+
+    local members = party:getMembers()
+    local found = false
+
+    for _, member in ipairs(members) do 
+        if member:getName() == membername then 
+            party:removeMember(member)
+            found = true
+            break
+        end
+    end
+
+    if found then
+        player:sendTextMessage(MESSAGE_STATUS_CONSOLE_BLUE, membername .. " has been removed from the party.")
+    else
+        player:sendTextMessage(MESSAGE_STATUS_CONSOLE_ORANGE, membername .. " is not in your party.")
+    end
+end
+-------------
+Firstly, the code checks whether the player is in a party or not before manipulating this data. This avoids any bugs if the player is already in a party.
+Secondly, I corrected the loop to check the member's name in the party using "member:getName()" and used ipairs to iterate over the party members in order.
+Afterwards, I added a small message if the player/member has been successfully removed from the party or if they have not been found for it.
+  
