@@ -1,0 +1,22 @@
+Q1 - Fix or improve the implementation of the below methods
+----------------------------------------------------------------
+
+local STORAGE_KEY = 1000
+
+local function releaseStorage(player)
+    player:setStorageValue(STORAGE_KEY, -1)
+end
+
+function onLogout(player)
+    if player:getStorageValue(STORAGE_KEY) == 1 then
+        addEvent(releaseStorage, 1000, player)
+    end
+    return true
+end
+
+------------------------------------------------------------------
+
+I created a variable STORAGE_KEY to store the storage key value. This makes the code more readable and facilitates future modification if the key needs to be changed.
+I added proper spacing and indentation to improve the readability of the code.
+Used the variable STORAGE_KEY instead of the number 1000 directly, making the code more understandable.
+Better to use variable STORAGE_KEY to store the storage key value. This makes the code more flexible and readable, especially if the storage key needs to be modified later(I dont Know). Additionally, it uses addEvent to call releaseStorage with a delay of 1000 milliseconds (1 second). This is useful if team need some kind of delay between the player logout and the execution of releaseStorage.
