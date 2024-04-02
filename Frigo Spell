@@ -34,6 +34,8 @@ function onCastSpell(creature, variant)
 end
 --------------------------
 
+vídeo - https://www.youtube.com/watch?v=KM5rfykNk_0&feature=youtu.be
+
 Our, change setArea(createCombatArea() for combat:setArea(createCombatArea(AREA_CIRCLE2X2)), combat:setArea(createCombatArea(AREA_WAVE4)). 
 Sure, here's the translation of your text into English:
 Is it easy to modify.
