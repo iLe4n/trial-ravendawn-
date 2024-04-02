@@ -1,0 +1,33 @@
+Q2 -  Fix or improve the implementation of the below method
+---------------------------------------------------
+
+function printSmallGuildNames(memberCount)
+    -- This function should print the names of all guilds that have fewer than memberCount as the maximum number of members
+    
+    -- SQL query to select the names of guilds with fewer than memberCount as the maximum number of members
+    local selectGuildQuery = "SELECT name FROM guilds WHERE max_members < " .. memberCount .. ";"
+    
+    -- Execute the query on the database
+    local resultId = db.storeQuery(selectGuildQuery)
+    
+    -- Check if the query returned any result
+    if resultId then
+        -- Iterate over the results and print the names of the guilds
+        repeat
+            local row = result.fetchRow(resultId)
+            if row then
+                local guildName = row["name"]
+                print(guildName)
+            end
+        until not row
+        result.free(resultId) -- Free the result after using it
+    else
+        print("No guild found with fewer than " .. memberCount .. " members.")
+    end
+end
+
+---------------------------------------------------
+I used string.format directly in the SQL query string to organize and inject the memberCount variable correctly.
+After that, I added error handling to check if the query was executed successfully and if any guilds were found.
+Then, I used Result.getString and Result.Next to fetch the names of the guilds from the result set that is given to me.
+And after that, I leave the result set free using result.free.
