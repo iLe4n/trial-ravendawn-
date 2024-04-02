@@ -1,0 +1,41 @@
+------Frigo Spell------
+
+To create this spell, I was able to use an old program called SpellCreator, but it wasn't working as I wanted, so I made the changes directly in the client's code. I took the spell in question, which was "exevo gran mas frigo," took its sprite, and added the spell I wanted to repeat as shown in the Discord video. In the video, I can make it however I want, from size, quantity, and even duration (as shown in the video).
+The alteration was simple, I just had to take the spell in question and change how I wanted it to work in my client. In the Lua code, I can add it to the combat " setArea(createCombatArea() " and add the size or how I want my spell to come out. Our change in Data/Lib/Spells. 
+
+I used, as you'll see in the video:
+local combat = Combat()
+combat:setParameter(COMBAT_PARAM_TYPE, COMBAT_ICEDAMAGE)
+combat:setParameter(COMBAT_PARAM_EFFECT, CONST_ME_ICETORNADO)
+combat:setArea(createCombatArea({
+{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+{0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0},
+{0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+{1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1},
+{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+{0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+{0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0},
+{0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}
+}))
+
+function onGetFormulaValues(player, level, maglevel)
+	local min = (level / 5) + (maglevel * 5.5) + 25
+	local max = (level / 5) + (maglevel * 11) + 50
+	return -min, -max
+end
+
+combat:setCallback(CALLBACK_PARAM_LEVELMAGICVALUE, "onGetFormulaValues")
+
+function onCastSpell(creature, variant)
+	return combat:execute(creature, variant)
+end
+--------------------------
+
+Our, change setArea(createCombatArea() for combat:setArea(createCombatArea(AREA_CIRCLE2X2)), combat:setArea(createCombatArea(AREA_WAVE4)). 
+Sure, here's the translation of your text into English:
+Is it easy to modify.
+After doing that, I simply entered the XML source and looked for the spell I wanted to change. There, I can change everything, time, whether it's something for premium players or not, to which vocations, the name of the spell, and other changes
+Indeed, the other spells are edited and configured in the same way, meaning the standard creation and editing process of spells remains unchanged in this regard.
